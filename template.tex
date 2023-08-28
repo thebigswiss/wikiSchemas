@@ -1,0 +1,62 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Template for creating classic Schmeas, with circuitikz.
+%
+% Author: Ambros Ellenberger (thebigswiss)
+% Version: see on https://github.com/thebigswiss/wikiSchemas
+% License: GPLv3, see GitHub
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[landscape]{article}
+%
+%
+\usepackage{siunitx}
+\sisetup{per-mode=fraction}
+%
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+%
+\usepackage{mathrsfs}
+%
+\usepackage{tikz}
+\usepackage[european, straightvoltages, americaninductors]{circuitikz}
+%
+\ctikzset{logic ports=european, tripoles/european not symbol=ieee circle}
+\usetikzlibrary{arrows}
+%
+\pagestyle{empty}
+\begin{document}
+	
+	\begin{circuitikz}
+		
+		\ctikzset{diodes/scale=0.6}
+		
+		\draw(0,0) coordinate(Ue1);
+		\draw(0,0) --++ (1,0) coordinate(C1);
+		\draw(C1) ++ (0,-3) coordinate(C2);
+		\draw(C2) --++ (-1,0) coordinate(Ue2);
+		\draw(C1) --++ (1,0) coordinate(MOSD);
+		\draw(MOSD) ++ (2,0) coordinate(MOSS);
+		\draw(MOSS) --++ (1,0) coordinate(D1);
+		\draw(D1) ++ (0,-3) coordinate(D2);
+		\draw(D2) -- (C2);
+		\draw(D1) --++ (1,0) coordinate(L1);
+		\draw(L1) ++ (2,0) coordinate(L2);
+		\draw(L2) --++ (1,0) coordinate(C3);
+		\draw(C3) ++ (0,-3) coordinate(C4);
+		\draw(C4) -- (D2);
+		\draw(C3) --++ (1,0) coordinate(Ua1);
+		\draw(C4) --++ (1,0) coordinate(Ua2);
+		
+		\draw(MOSS) to[Tnigfete] (MOSD);
+		\draw(C1) to[eC, l=$C_1$,*-*] (C2);
+		\draw(Ue1) to[open, v = $U_e$, o-o] (Ue2);
+		\draw(D2) to[D,l=$D_1$, *-*] (D1);
+		\draw(L1) to[L, l=$L_1$] (L2);
+		\draw(C3) to[eC,l_=$C_2$, *-*] (C4);
+		\draw(Ua1) to[open, v^>= $U_a$, o-o] (Ua2);
+	
+	\end{circuitikz}
+	
+\end{document}
