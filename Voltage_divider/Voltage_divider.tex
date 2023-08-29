@@ -28,21 +28,43 @@
 \pagestyle{empty}
 \begin{document}
 	
+\begin{circuitikz}
+	
+	\draw (0,0) coordinate(Ue);
+	\draw (Ue) to[short, i = $I_e$] (1,0) coordinate(R11);
+	\draw (R11) ++ (0,-2) coordinate(mR);
+	\draw (mR) -- ++ (2,0) coordinate(Ua);
+	\draw (mR) ++ (0,-2) coordinate(R22);
+	\draw (R22) --++ (-1,0) coordinate(GND);
+	\draw (R22) -- ++ (2,0) coordinate(GND1);
+	
+	\draw (R11) to[R,l = $R_1$] (mR);
+	\draw (mR) to[R,l = $R_2$, *-*] (R22);
+	\draw (Ue) to[open, v = $U_e$, o-o] (GND);
+	\draw (Ua) to[open, v = $U_a$, o-o] (GND1);
+	
+\end{circuitikz}
+
+\newpage
+
 	\begin{circuitikz}
-		
-		\draw (0,0) coordinate(Ue);
-		\draw (Ue) --++ (1,0) coordinate(R11);
-		\draw (R11) ++ (0,-2) coordinate(mR);
-		\draw (mR) -- ++ (2,0) coordinate(Ua);
-		\draw (mR) ++ (0,-2) coordinate(R22);
-		\draw (R22) --++ (-1,0) coordinate(GND);
-		\draw (R22) -- ++ (2,0) coordinate(GND1);
-		
-		\draw (R11) to[R,l = $R_1$] (mR);
-		\draw (mR) to[R,l = $R_2$, *-*] (R22);
-		\draw (Ue) to[open, v = $U_e$, o-o] (GND);
-		\draw (Ua) to[open, v = $U_a$, o-o] (GND1);
-		
-	\end{circuitikz}
+	
+	\draw (0,0) coordinate(Ue);
+	\draw (Ue) to[short, i = $I_e$] (1,0) coordinate(R11);
+	\draw (R11) ++ (0,-2) coordinate(mR);
+	\draw (mR) -- ++ (2,0) coordinate(Ua);
+	\draw (mR) ++ (0,-2) coordinate(R22);
+	\draw (R22) --++ (-1,0) coordinate(GND);
+	\draw (R22) -- ++ (2,0) coordinate(GND1);
+	\draw (R11) ++ (2,0) coordinate(U1);
+	
+	\draw (R11) to[R,l = $R_1$] (mR);
+	\draw (mR) to[R,l = $R_2$, *-*] (R22);
+	\draw (Ue) to[open, v = $U_e$, o-o] (GND);
+	\draw (Ua) to[open, v = $U_a$, o-o] (GND1);
+	\draw (U1) to[open, v = $U_1$] (Ua);
+	
+\end{circuitikz}
+	
 	
 \end{document}
