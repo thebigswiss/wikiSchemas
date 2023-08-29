@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% CBlindleistung
+%
+% Author: Ambros Ellenberger (thebigswiss)
+% Version: see on https://github.com/thebigswiss/wikiSchemas
+% License: GPLv3, see GitHub
+% https://de.wikipedia.org/wiki/Kondensator_(Elektrotechnik)#/media/Datei:Blindleistung.svg
+% https://de.wikipedia.org/wiki/Kondensator_(Elektrotechnik)#/media/Datei:Blindleistungskompensation.svg
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[landscape,12pt]{article}
+%
+%
+\usepackage{siunitx}
+\sisetup{per-mode=fraction}
+%
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+%
+\usepackage{mathrsfs}
+%
+\usepackage{tikz}
+\usepackage[european, straightvoltages, americaninductors, siunitx]{circuitikz}
+%
+\ctikzset{logic ports=european, tripoles/european not symbol=ieee circle}
+\usetikzlibrary{arrows}
+%
+\pagestyle{empty}
+\begin{document}
+	
+\begin{circuitikz}
+	
+	\draw (0,0) coordinate(Ue);
+	\draw (Ue) ++ (2,0) coordinate(L11);
+	\draw (L11) -- ++ (3,0) coordinate(C11);
+	\draw (C11) -- ++ (2,0) coordinate(R11);
+	\draw (R11) ++ (0,-3) coordinate(R12);
+	\draw (R12) -- ++ (-2,0) coordinate(C12);
+	\draw (C12) -- ++ (-3,0) coordinate(L12);
+	\draw (L12) -- ++ (-2,0) coordinate(GND);
+	
+	\draw (Ue) to[open, v = \SI{230}{\volt}, o-o] (GND);
+	\draw (L11) to[L, l = \SI{500}{\milli\henry}, i = \SI{1.45}{\ampere}, *-*] (L12);
+	\draw (C11) to[C, l = \SI{20}{\micro\farad}, i = \SI{1.45}{\ampere}, *-*] (C12);
+	\draw (R11) to[R, l = \SI{100}{\ohm}] (R12);
+	
+	\draw (Ue) to[short, i = \SI{2.3}{\ampere}] (L11);
+	\draw (L11) to[short, i = \SI{2.72}{\ampere}] (C11);
+	\draw (C11) to[short, i = \SI{2,3}{\ampere}] (R11);
+	
+	%% Beschriftungen
+	
+	\draw (C11) ++ (-0.5, 0.5) coordinate(edge1);
+	\draw (R12) ++ (0.5, -1) coordinate(edge2);
+	
+	\draw[red, thick] (L12) node[below]{Kompensation};
+	
+	\draw[red, thick] (edge1) rectangle (edge2) node[anchor=south east, align=center] at (body.south east) {Ding};
+	
+
+
+\end{circuitikz}
+	
+\end{document}
